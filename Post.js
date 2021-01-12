@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import './Post.css';
 import { Avatar } from '@material-ui/core';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
@@ -7,7 +7,7 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 
-function Post({
+const Post = forwardRef(({
     displayName,
     username,
     verified,
@@ -15,28 +15,28 @@ function Post({
     text,
     image,
     avatar
-}) {
+}, ref) => {
     return (
-        <div className="post">
+        <div className="post" ref={ref}>
             <div className="post__avatar">
-                <Avatar src="https://www.gstatic.com/tv/thumb/persons/218027/218027_v9_bb.jpg" />
+                <Avatar src={avatar} />
             </div>
             <div className="post__body">
                 <div className="post__header">
                     <div className="post__headerText">
                         <h3>
-                            Toni Sevastjanoff{" "}
+                            {displayName}{" "}
                             <span className="post__headerSpecial">
-                                <VerifiedUserIcon className="post__badge" />
-                                @toni.sevastjanoff
+                                {verified && <VerifiedUserIcon className="post__badge" />}
+                                @{username}
                             </span>
                         </h3>
                     </div>
                     <div className="post__headerDescription">
-                        <p>I challenge you to build a twitter clone</p>
+                        <p>{text}</p>
                     </div>
                 </div>
-                <img src="https://www.gstatic.com/tv/thumb/persons/218027/218027_v9_bb.jpg" alt="" />
+                <img src={image} alt="" />
                 <div className="post__footer">
                     <ChatBubbleOutlineIcon fontSize="small" />
                     <RepeatIcon fontSize="small" />
@@ -48,5 +48,6 @@ function Post({
 
     )
 }
+);
 
 export default Post;
